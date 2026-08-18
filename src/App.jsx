@@ -316,14 +316,14 @@ const daysTo = (iso) => Math.ceil((new Date(iso) - TODAY) / 86400000);
 
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Russo+One&family=Oswald:wght@500;600;700&family=Tektur:wght@600;700;900&family=Manrope:wght@400;500;600;700;800&display=swap');
-:root{--ink:#0F2A1D;--deep:#0F2A1D;--deep2:#16382A;--field:#F4F6F0;--card:#FFF;--tape:#FF4D00;--river:#1B7F8E;--line:#DCE2D4;--mut:#5C6B5E;--lite:#E7ECE0;--fd:'Unbounded'}
+:root{--ink:#0F2A1D;--deep:#0F2A1D;--deep2:#16382A;--field:#F4F6F0;--card:#FFF;--tape:#FF4D00;--river:#1B7F8E;--line:#DCE2D4;--mut:#5C6B5E;--lite:#E7ECE0;--fd:'Unbounded';--navh:60px}
 *{box-sizing:border-box;margin:0;padding:0}
 .ht{min-height:100vh;background:var(--field);color:var(--ink);font-family:'Manrope',sans-serif;font-size:15px;line-height:1.55}
 .ht h1,.ht h2,.ht h3{font-family:var(--fd),sans-serif;letter-spacing:-.01em}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 .tape{height:10px;background:repeating-linear-gradient(-55deg,var(--tape) 0 22px,var(--deep) 22px 44px)}
 .nav{background:var(--deep);color:#fff;position:sticky;top:0;z-index:40}
-.nav .wrap{display:flex;align-items:center;gap:4px;height:60px;flex-wrap:wrap}
+.nav .wrap{display:flex;align-items:center;gap:4px;height:var(--navh);flex-wrap:nowrap}
 .logo{font-family:var(--fd);font-weight:900;font-size:17px;cursor:pointer;margin-right:8px;white-space:nowrap;display:flex;align-items:center;gap:8px}
 .logo em{color:var(--tape);font-style:normal}
 .nbtn{background:none;border:none;color:#CBD8CC;font:600 13.5px 'Manrope';padding:8px 10px;border-radius:8px;cursor:pointer}
@@ -422,19 +422,19 @@ const CSS = `
 .facts{display:flex;gap:26px;flex-wrap:wrap;margin-top:22px}
 .fact .fv{font-family:var(--fd);font-weight:900;font-size:19px}
 .fact .fl{font:700 11px 'Manrope';letter-spacing:.12em;text-transform:uppercase;color:#9DB3A2}
-.subnav{position:sticky;top:60px;z-index:30;background:var(--card);border-bottom:1px solid var(--line)}
+.subnav{position:sticky;top:var(--navh);z-index:30;background:var(--card);border-bottom:1px solid var(--line)}
 .subnav .wrap{display:flex;gap:2px;overflow-x:auto;padding-top:6px;padding-bottom:6px;align-items:center}
 .snbtn{background:none;border:none;white-space:nowrap;font:700 13px 'Manrope';color:var(--mut);padding:8px 12px;border-radius:8px;cursor:pointer}
 .snbtn:hover{color:var(--ink);background:var(--field)}
-.cols{display:grid;grid-template-columns:1fr 330px;gap:26px;align-items:start}
-@media(max-width:860px){.cols{grid-template-columns:1fr}}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px;scroll-margin-top:120px}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:26px;align-items:start}
+@media(max-width:860px){.cols{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px;scroll-margin-top:calc(var(--navh) + 60px)}
 .panel h3{font-size:16px;margin-bottom:13px}
 .row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--field);font-size:14px}
 .row:last-child{border-bottom:none}
 .row b{font-weight:800}
-.fee{font-family:var(--fd);font-weight:700}
-.sticky{position:sticky;top:122px}
+.fee{font-family:var(--fd);font-weight:700;white-space:nowrap}
+.sticky{position:sticky;top:calc(var(--navh) + 62px)}
 .note{font-size:13px;color:var(--mut);margin-top:10px}
 .hint{font-size:13px;color:var(--mut)}
 .dcard{border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
@@ -469,10 +469,14 @@ const CSS = `
 .foldb{margin-top:14px}
 .field{margin-bottom:15px}
 .field label{display:block;font:800 12px 'Manrope';letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
-.field input,.field select,.field textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 13px;font:600 14.5px 'Manrope';color:var(--ink);background:var(--card);outline:none}
+.field input,.field select,.field textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 13px;font:600 16px 'Manrope';color:var(--ink);background:var(--card);outline:none}
+.minifield{margin-left:10px;border:1.5px solid var(--line);border-radius:8px;padding:5px 9px;font:700 16px 'Manrope';color:var(--ink);background:var(--card);outline:none;max-width:130px}
+.minifield:focus{border-color:var(--river)}
+.bibname{width:110px;font-weight:800;letter-spacing:.06em}
+.numfield{width:110px;margin-left:0;font-weight:600}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--river)}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:640px){.frow{grid-template-columns:1fr}}
+.frow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+@media(max-width:640px){.frow{grid-template-columns:minmax(0,1fr)}}
 .radio{display:flex;align-items:center;justify-content:space-between;border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;margin-bottom:8px;cursor:pointer;font-weight:700}
 .radio.on{border-color:var(--tape);background:#FFF7F2}
 .calc{background:var(--deep);color:#fff;border-radius:12px;padding:15px 18px;margin:16px 0}
@@ -481,7 +485,7 @@ const CSS = `
 .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px}
 .stat .v{font-family:var(--fd);font-weight:900;font-size:25px}
 .stat .l{font-size:12px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-.trow{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-bottom:10px;cursor:pointer}
+.trow{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-bottom:10px;cursor:pointer}
 .trow:hover{border-color:var(--river)}
 .trow .d{font-family:var(--fd);font-weight:900;font-size:15px;text-align:center;line-height:1.15}
 .trow .d small{display:block;font:700 10px 'Manrope';color:var(--mut);text-transform:uppercase}
@@ -489,11 +493,11 @@ const CSS = `
 .res-r .t{font-family:var(--fd);font-weight:700;font-size:16px}
 .res-r .p{font-size:12px;color:var(--mut)}
 .search{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-.search input{flex:1;min-width:240px;border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;font:600 15px 'Manrope';background:var(--card);color:var(--ink);outline:none}
+.search input{flex:1;min-width:240px;border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;font:600 16px 'Manrope';background:var(--card);color:var(--ink);outline:none}
 .search input:focus{border-color:var(--tape)}
 .medal{display:inline-flex;width:26px;height:26px;border-radius:50%;align-items:center;justify-content:center;font:900 12px var(--fd);color:#fff}
 .m1{background:#D4A017}.m2{background:#9AA2A8}.m3{background:#A9765C}.mN{background:var(--lite);color:var(--ink)}
-.cuprow{display:grid;grid-template-columns:44px 1fr auto auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:8px}
+.cuprow{display:grid;grid-template-columns:44px minmax(0,1fr) auto auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:8px}
 .cuprow.me{border-color:var(--tape);background:#FFF9F5}
 .cuprow .nm{font-weight:800}
 .cuprow .sub{font-size:12.5px;color:var(--mut)}
@@ -521,7 +525,7 @@ const CSS = `
 .atab{border:1.5px solid var(--line);background:var(--card);border-radius:10px;padding:9px 16px;font:800 13px 'Manrope';color:var(--mut);cursor:pointer}
 .atab.on{background:var(--tape);border-color:var(--tape);color:#fff}
 .atab .cnt{background:rgba(0,0,0,.12);border-radius:999px;padding:1px 7px;margin-left:6px;font-size:11px}
-.arow{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:8px}
+.arow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:8px}
 .arow .sub{font-size:13px;color:var(--mut)}
 .admbar{background:#3B1F0E;color:#FFD9C2;font:700 13px 'Manrope';padding:9px 0}
 .upl{border:2px dashed var(--line);border-radius:12px;padding:22px;text-align:center;color:var(--mut);cursor:pointer;font-weight:700}
@@ -530,9 +534,9 @@ const CSS = `
 .thumb{position:relative}
 .thumb img{width:100%;height:90px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .thumb .del{position:absolute;top:6px;right:6px;background:rgba(15,42,29,.85);color:#fff;border:none;border-radius:6px;width:24px;height:24px;cursor:pointer;font-weight:900}
-.erow{display:grid;grid-template-columns:1fr 90px 1fr 34px;gap:8px;margin-bottom:8px}
-.erow2{display:grid;grid-template-columns:130px 1fr 34px;gap:8px;margin-bottom:8px}
-.erow input,.erow2 input{border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;font:600 13.5px 'Manrope';width:100%}
+.erow{display:grid;grid-template-columns:minmax(0,1fr) 90px minmax(0,1fr) 34px;gap:8px;margin-bottom:8px}
+.erow2{display:grid;grid-template-columns:130px minmax(0,1fr) 34px;gap:8px;margin-bottom:8px}
+.erow input,.erow2 input{border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;font:600 16px 'Manrope';width:100%}
 .xdel{border:none;background:#F3E3DB;color:#8A3A1B;border-radius:8px;cursor:pointer;font-weight:900}
 .pinhead{font:800 11px 'Manrope';letter-spacing:.16em;text-transform:uppercase;color:var(--tape);margin-bottom:10px;display:flex;align-items:center;gap:10px}
 .pinhead::after{content:"";flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--tape) 0 8px,transparent 8px 16px);opacity:.5}
@@ -557,6 +561,151 @@ const CSS = `
 .shopcard .tile{width:52px;height:52px;border-radius:12px;background:var(--deep);color:var(--tape);display:flex;align-items:center;justify-content:center;font:900 20px var(--fd)}
 .shopcard h3{font-size:15px}
 .shopcard .d{font-size:13px;color:var(--mut);flex:1}
+
+/* ============================================================
+   МОБИЛЬНЫЙ СЛОЙ v5.1 — идёт последним, поэтому переопределяет
+   только то, что нужно. Десктоп (>900px) не меняется.
+   ============================================================ */
+
+/* --- гигиена, безопасная на всех ширинах --- */
+html{-webkit-text-size-adjust:100%}
+.ht{min-height:100dvh;overflow-x:clip;overflow-wrap:break-word}
+.ht img,.ht svg{max-width:100%}
+.ht button,.ht a{touch-action:manipulation;-webkit-tap-highlight-color:rgba(255,77,0,.14)}
+.tblwrap,.subnav .wrap{-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.subnav .wrap{scrollbar-width:none}
+.subnav .wrap::-webkit-scrollbar{display:none}
+/* min() — чтобы карточки не выпирали за экран уже 320px */
+.grid{grid-template-columns:repeat(auto-fill,minmax(min(290px,100%),1fr))}
+.fundstrip{grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
+.leaguegrid{grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr))}
+.shopgrid{grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr))}
+.acgrid{grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr))}
+.gal{grid-template-columns:repeat(auto-fill,minmax(min(140px,100%),1fr))}
+.thumbs{grid-template-columns:repeat(auto-fill,minmax(min(120px,100%),1fr))}
+/* fixed-элементы уважают вырез и домашнюю полоску iPhone */
+.toast{bottom:calc(24px + env(safe-area-inset-bottom))}
+.themes{left:calc(18px + env(safe-area-inset-left));bottom:calc(18px + env(safe-area-inset-bottom))}
+/* на тач-экранах hover залипает после тапа — гасим */
+@media(hover:none){
+  .bib:hover,.fundcard:hover,.leaguecard:hover,.btn:hover{transform:none;box-shadow:none}
+  .nbtn:hover{background:none;color:#CBD8CC}
+  .nbtn.on:hover{color:#fff;background:rgba(255,255,255,.14)}
+  .snbtn:hover{background:none;color:var(--mut)}
+}
+/* элементы, которые появляются только на мобильном */
+.burger{display:none}
+.navscrim{display:none}
+.navlinks{display:contents}
+.thtog{display:none}
+
+/* --- ПЛАНШЕТ И ТЕЛЕФОН: шапка становится бургер-меню --- */
+@media(max-width:900px){
+  :root{--navh:56px}
+  .nav .wrap{gap:2px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+  .logo{font-size:15px;margin-right:0;gap:7px}
+  .navlinks{display:none}
+  .navlinks.open{display:flex;flex-direction:column;gap:2px;position:absolute;left:0;right:0;top:var(--navh);
+    background:var(--deep);border-top:1px solid rgba(255,255,255,.12);
+    padding:8px 10px calc(12px + env(safe-area-inset-bottom));
+    box-shadow:0 18px 34px rgba(0,0,0,.34);max-height:calc(100dvh - var(--navh));overflow-y:auto}
+  .navlinks.open .nbtn{width:100%;text-align:left;font-size:15px;padding:13px 14px;min-height:48px;border-radius:10px}
+  .burger{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex-shrink:0;
+    background:none;border:none;border-radius:10px;cursor:pointer;padding:0;margin-left:2px}
+  .burger i{display:block;position:relative;width:20px;height:2px;background:#fff;border-radius:2px}
+  .burger i::before,.burger i::after{content:"";position:absolute;left:0;width:20px;height:2px;background:#fff;border-radius:2px;transition:transform .18s}
+  .burger i::before{top:-6px}
+  .burger i::after{top:6px}
+  .burger.on i{background:transparent}
+  .burger.on i::before{transform:translateY(6px) rotate(45deg)}
+  .burger.on i::after{transform:translateY(-6px) rotate(-45deg)}
+  .acct{padding:8px 12px;min-height:40px;flex-shrink:0}
+  .nbtn.adm{min-height:40px;padding:8px 10px;flex-shrink:0}
+  .navscrim{display:block;position:fixed;inset:var(--navh) 0 0;background:rgba(8,14,10,.45);z-index:35;border:none;padding:0;cursor:default}
+}
+
+/* --- одна колонка: блок «Участие» поднимается наверх --- */
+@media(max-width:860px){
+  .cols>.sticky:not(.panel){display:contents}
+  .cols>.sticky:not(.panel)>.panel{order:2}
+  .cols>.sticky:not(.panel)>.panel:first-child{order:-1}
+  .panel.sticky{position:static}
+}
+
+/* --- ТЕЛЕФОН --- */
+@media(max-width:640px){
+  .wrap{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+  .sec{padding:28px 0}
+  .sechead h2{font-size:19px}
+  .sechead>div,.sechead>span{flex-wrap:wrap}
+  .panel{padding:16px 15px;border-radius:12px}
+  .foot{padding:26px 0;margin-top:28px}
+
+  .hero{padding:34px 0 38px}
+  .hero::after{width:280px;height:280px;right:-90px;top:-70px}
+  .hero h1{line-height:1.1}
+  .hero p{font-size:15px;margin-top:12px}
+  .hbtns{gap:10px;margin-top:22px}
+  .hbtns .btn{flex:1 1 100%}
+  .next{display:flex;width:100%;flex-wrap:wrap;gap:6px 16px;padding:13px 15px;margin-top:24px}
+  .counter{font-size:12.5px}
+  .ehero{padding:30px 0}
+  .ehero h1{line-height:1.14}
+  .esub{font-size:15px}
+  .meta{font-size:14px}
+  .facts{gap:12px 18px;margin-top:16px}
+
+  /* тач-таргеты не меньше 44px (Apple HIG / WCAG 2.5.8) */
+  .btn{min-height:48px;padding:13px 18px}
+  .btn.sm{min-height:40px;padding:9px 14px}
+  .chip,.atab,.preset,.snbtn{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+  .link{min-height:44px;display:inline-flex;align-items:center}
+  .radio{min-height:52px;padding:13px 14px}
+  .doc{padding:13px 0;min-height:48px}
+  .foldh{min-height:44px;align-items:center}
+  .xdel{min-height:44px;min-width:44px}
+  .thumb .del{width:32px;height:32px;border-radius:8px}
+  .sw{width:38px;height:38px}
+  /* iOS Safari зумит поле при фокусе, если шрифт < 16px — размер задан в базовых правилах */
+  .field input,.field select,.field textarea{padding:12px 13px}
+  .search input{min-width:0}
+
+  /* широкие «строки-гриды» перестраиваются в две колонки */
+  .trow{grid-template-columns:46px minmax(0,1fr);gap:8px 12px;padding:12px 13px}
+  .trow .res-r{grid-column:2;text-align:left}
+  .cuprow{grid-template-columns:34px minmax(0,1fr);gap:5px 10px;align-items:start;padding:12px 13px}
+  .cuprow>.medal{grid-column:1;grid-row:1}
+  .cuprow>:nth-child(2){grid-column:2;grid-row:1}
+  .cuprow>span:empty{display:none}
+  .cuprow>.hint{grid-column:2}
+  .cuprow>:last-child{grid-column:2;display:flex;align-items:baseline;gap:7px}
+  .cuprow .st{text-align:left}
+  .arow{grid-template-columns:minmax(0,1fr);gap:10px}
+  .erow{grid-template-columns:minmax(0,1fr) 88px 44px}
+  .erow>input:nth-child(3){grid-column:1/-1}
+  .erow>.xdel{grid-column:3;grid-row:1}
+  .erow2{grid-template-columns:minmax(0,1fr) 44px}
+  .erow2>input:nth-child(2){grid-column:1/-1}
+  .erow2>.xdel{grid-column:2;grid-row:1}
+
+  .acgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .stat{padding:13px}
+  .stat .v{font-size:22px}
+  .gal img{height:96px}
+  .tbl th,.tbl td{padding:8px}
+
+  /* панель тем сворачивается, чтобы не закрывать контент */
+  .themes{left:calc(10px + env(safe-area-inset-left));bottom:calc(10px + env(safe-area-inset-bottom));padding:7px 8px;border-radius:12px}
+  .themes .tt,.themes .tname{display:none}
+  .themes:not(.open) .sw:not(.on){display:none}
+  .thtog{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;
+    border:1px solid var(--line);background:var(--card);color:var(--mut);border-radius:10px;
+    font:900 15px 'Manrope';cursor:pointer}
+
+  /* тост — во всю ширину и выше панели тем */
+  .toast{left:16px;right:16px;transform:none;max-width:none;justify-content:center;text-align:center;
+    bottom:calc(70px + env(safe-area-inset-bottom))}
+}
 `;
 
 /* ---------------- логотип и пиктограммы ---------------- */
@@ -1203,14 +1352,13 @@ function Register({ ev, go, onDone }) {
           {list.map((a) => (
             <div key={a.id} className={`radio ${picked[a.id] ? "on" : ""}`} onClick={() => setPicked((o) => ({ ...o, [a.id]: !o[a.id] }))}>
               <span>{a.n}{a.size && picked[a.id] && (
-                <select value={teeSize} onClick={(e) => e.stopPropagation()} onChange={(e) => setTeeSize(e.target.value)}
-                  style={{ marginLeft: 10, border: "1.5px solid var(--line)", borderRadius: 8, padding: "3px 8px", font: "700 13px 'Manrope'" }}>
+                <select className="minifield" value={teeSize} onClick={(e) => e.stopPropagation()} onChange={(e) => setTeeSize(e.target.value)}>
                   {["XS", "S", "M", "L", "XL", "XXL"].map((z) => <option key={z}>{z}</option>)}
                 </select>
               )}{a.bib && picked[a.id] && (
                 <input placeholder="DENIS" value={bibName} onClick={(e) => e.stopPropagation()}
                   onChange={(e) => setBibName(e.target.value.toUpperCase().slice(0, 8))}
-                  style={{ marginLeft: 10, width: 110, border: "1.5px solid var(--line)", borderRadius: 8, padding: "4px 8px", font: "800 13px 'Manrope'", letterSpacing: ".06em" }} />
+                  className="minifield bibname" />
               )}</span>
               <span className="fee">+{a.fee} руб</span>
             </div>
@@ -1694,7 +1842,7 @@ function Admin({ events, regs, setRegs, partners, setPartners, funds, setFunds, 
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             <span className="hint">собрано:</span>
             <input type="number" value={f.raised}
-              style={{ width: 110, border: "1.5px solid var(--line)", borderRadius: 8, padding: "8px 10px", font: "600 13.5px 'Manrope'" }}
+              className="minifield numfield"
               onChange={(e) => setFunds((fs) => fs.map((x) => x.id === f.id ? { ...x, raised: Number(e.target.value) || 0 } : x))} />
             <span className="hint">{f.cur}</span>
           </div>
@@ -1806,16 +1954,19 @@ const THEMES = [
 ];
 function ThemeBar({ theme, setTheme }) {
   const cur = THEMES.find((t) => t.key === theme);
+  const [open, setOpen] = useState(false);
   return (
-    <div className="themes">
+    <div className={`themes ${open ? "open" : ""}`}>
       <div className="tt">Фирменный стиль</div>
       <div className="trowt">
         {THEMES.map((t) => (
-          <button key={t.key} className={`sw ${theme === t.key ? "on" : ""}`} title={t.name} onClick={() => setTheme(t.key)}>
+          <button key={t.key} className={`sw ${theme === t.key ? "on" : ""}`} title={t.name}
+            onClick={() => { setTheme(t.key); setOpen(false); }}>
             <span className="h1c" style={{ background: t.vars["--deep"] }} />
             <span className="h2c" style={{ background: t.vars["--tape"] }} />
           </button>
         ))}
+        <button className="thtog" aria-label="Сменить фирменный стиль" onClick={() => setOpen((o) => !o)}>{open ? "✕" : "▸"}</button>
         <span className="tname">{cur.name}</span>
       </div>
     </div>
@@ -1827,6 +1978,7 @@ let EVENTS_ALL = EVENTS_SEED;
 
 export default function App() {
   const [route, setRoute] = useState({ page: "home", id: null });
+  const [menu, setMenu] = useState(false);
   const [theme, setTheme] = useState("tape");
   const [role, setRole] = useState("user");
   const [events, setEvents] = useState(EVENTS_SEED);
@@ -1839,7 +1991,7 @@ export default function App() {
   const [toast, setToast] = useState(null);
   EVENTS_ALL = events;
 
-  const go = (page, id = null) => { setRoute({ page, id }); window.scrollTo(0, 0); };
+  const go = (page, id = null) => { setRoute({ page, id }); setMenu(false); window.scrollTo(0, 0); };
   const notify = (msg) => { setToast(msg); setTimeout(() => setToast(null), 3500); };
   const myRegs = regs.filter((r) => r.mine);
   const donate = (id, amount, silent) => {
@@ -1870,19 +2022,23 @@ export default function App() {
       <nav className="nav">
         <div className="wrap">
           <span className="logo" onClick={() => go("home")}><LogoMark s={32} /><span>HI-<em>TRAIL</em></span></span>
-          <button className={`nbtn ${route.page === "home" ? "on" : ""}`} onClick={() => go("home")}>Главная</button>
-          <button className={`nbtn ${route.page === "calendar" ? "on" : ""}`} onClick={() => go("calendar")}>Календарь</button>
-          <button className={`nbtn ${route.page === "results" ? "on" : ""}`} onClick={() => go("results")}>Результаты</button>
-          <button className={`nbtn ${route.page === "cup" ? "on" : ""}`} onClick={() => go("cup")}>Кубок</button>
-          <button className={`nbtn ${route.page === "shop" ? "on" : ""}`} onClick={() => go("shop")}>Магазин</button>
-          <button className={`nbtn ${route.page === "partners" ? "on" : ""}`} onClick={() => go("partners")}>Партнёрам</button>
+          <div className={`navlinks ${menu ? "open" : ""}`}>
+            <button className={`nbtn ${route.page === "home" ? "on" : ""}`} onClick={() => go("home")}>Главная</button>
+            <button className={`nbtn ${route.page === "calendar" ? "on" : ""}`} onClick={() => go("calendar")}>Календарь</button>
+            <button className={`nbtn ${route.page === "results" ? "on" : ""}`} onClick={() => go("results")}>Результаты</button>
+            <button className={`nbtn ${route.page === "cup" ? "on" : ""}`} onClick={() => go("cup")}>Кубок</button>
+            <button className={`nbtn ${route.page === "shop" ? "on" : ""}`} onClick={() => go("shop")}>Магазин</button>
+            <button className={`nbtn ${route.page === "partners" ? "on" : ""}`} onClick={() => go("partners")}>Партнёрам</button>
+          </div>
           <span className="nspace" />
           <button className="nbtn adm" onClick={() => { const toAdmin = role !== "admin"; setRole(toAdmin ? "admin" : "user"); go(toAdmin ? "admin" : "home"); }}>
             {role === "admin" ? "← Участник" : "⚙"}
           </button>
           <button className="acct" onClick={() => go("account")}><span className="dot" />{DEMO_USER.name}</button>
+          <button className={`burger ${menu ? "on" : ""}`} aria-label="Меню" aria-expanded={menu} onClick={() => setMenu((m) => !m)}><i /></button>
         </div>
       </nav>
+      {menu && <button className="navscrim" aria-label="Закрыть меню" onClick={() => setMenu(false)} />}
       {role === "admin" && <div className="admbar"><div className="wrap">Режим организатора: правки сразу видны на публичном сайте (демо).</div></div>}
 
       {route.page === "home" && <Home go={go} myRegs={myRegs} partners={partners} results={results} funds={funds} />}
