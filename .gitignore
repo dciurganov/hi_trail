@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.DS_Store
+*.local
+.env
+.env.*
+.idea/
+.vscode/
+
+# Внутренние заметки — не публикуем в открытом репозитории
+CLAUDE.md
+CONTEXT-full.md
